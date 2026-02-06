@@ -1,0 +1,19 @@
+{
+  "frontend/src/index.css": "Global styles with romantic pastel OKLCH color palette (pinks, blush, beige, red), custom animations (float, sparkle, confetti, pulse-heart), and romantic gradient utilities for the Valentine quiz theme.",
+  "frontend/src/App.tsx": "Main app component managing screen navigation state (welcome, quiz, results, punishment, valentine question, celebration) and coordinating the quiz flow with floating hearts background, audio controls, and toast notifications.",
+  "frontend/src/components/FloatingHeartsBackground.tsx": "Decorative background component rendering 15 randomly positioned, animated floating hearts with varying sizes, delays, and durations for ambient romantic atmosphere.",
+  "frontend/src/components/CelebrationBurst.tsx": "Animated celebration overlay component that displays hearts and sparkles falling from top to bottom, supports continuous mode for ongoing celebrations and one-shot mode for answer feedback.",
+  "frontend/src/components/SparkleBurst.tsx": "Special sparkle animation component that creates a radial burst of sparkles and stars, specifically triggered when selecting the Q4 \"Yes I will😘\" option.",
+  "frontend/src/screens/WelcomeScreen.tsx": "Landing screen displaying the quiz title \"How Well Do You Know Your Husband? 💖\", subtitle, start button, and share link functionality with romantic card styling.",
+  "frontend/src/screens/QuizScreen.tsx": "One-question-per-screen quiz interface with progress bar, animated option cards, immediate feedback on selection, celebration bursts for correct answers, and special sparkle effect for Q4.",
+  "frontend/src/screens/ResultsPerfectScreen.tsx": "Perfect score (7/7) results screen showing congratulations message, romantic meme image, date coupon reward with redeem interaction, continuous celebration animation, and share/restart actions.",
+  "frontend/src/screens/ResultsTeaseScreen.tsx": "Low score (<5) results screen displaying teasing message, score, teasing meme image, punishment notice, and navigation to punishment page with share/restart options.",
+  "frontend/src/screens/PunishmentScreen.tsx": "Punishment page displaying the exact punishment text about the fit-check video request with playful tone and continue button to proceed to Valentine question.",
+  "frontend/src/screens/ValentineQuestionScreen.tsx": "Interactive \"Will you be my Valentine?\" screen with escalating Yes/No button sizes, dynamic prompt text changes, and the playful trick where No becomes progressively harder to click.",
+  "frontend/src/screens/FinalCelebrationScreen.tsx": "Final celebration screen shown after clicking Yes, displaying \"YAY!!! You are my Valentine forever 💖🌹\" with continuous confetti/hearts animation and restart option.",
+  "frontend/src/features/quiz/quizData.ts": "Quiz data structure defining all 7 questions with their options and correct answer flags, including multi-correct questions (Q2, Q3, Q5) exactly as specified.",
+  "frontend/src/features/quiz/useQuiz.ts": "Quiz state management hook tracking current question index, score, answer state, and handling answer selection with automatic progression through questions.",
+  "frontend/src/features/audio/useAudio.ts": "Audio controller hook managing optional background music and sound effects with user-controlled enable/disable toggle, defaulting to OFF until user interaction.",
+  "frontend/src/features/audio/AudioControls.tsx": "Fixed-position audio toggle button component in top-right corner allowing users to enable/disable audio at any time with visual feedback.",
+  "frontend/src/lib/copyLink.ts": "Utility function to copy current page URL to clipboard with fallback support for older browsers, returning success/failure boolean for toast feedback."
+}

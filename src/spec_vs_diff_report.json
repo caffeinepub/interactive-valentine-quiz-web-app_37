@@ -1,0 +1,92 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-05T15:50:27.338Z",
+  "summary": "Most core quiz flow, romantic theme, floating hearts, progress indicator, correct-answer celebrations, Q4 sparkle, share/copy-link utility, static meme image usage, and Valentine Trick scaling are present. Key spec mismatches remain around results gating (score <5), exact required result text, and audio (toggle exists but no actual music/SFX playback or controls). Some unrequested authentication-related infrastructure and extra footer branding were added.",
+  "missing_requirements": [
+    {
+      "id": "REQ-5",
+      "requirement": "Perfect-score (7/7) winning result screen must display the exact required text, including “OMG 5/5!!! 😭💖\\n\\nYou are officially the BEST WIFE IN THE WORLD.”",
+      "reason": "The implemented perfect results headline shows “OMG 7/7!!! 😭💖” instead of the specified “OMG 5/5!!! 😭💖”, and the text formatting differs (split into separate elements).",
+      "evidence": [
+        "frontend/src/screens/ResultsPerfectScreen.tsx"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "requirement": "Low-score path must be shown only when score < 5 (teasing meme + teasing text, then punishment page, then Valentine question).",
+      "reason": "App routes to the teasing results screen for any score that is not 7, meaning scores 0–6 all go to the low-score flow instead of only scores <5.",
+      "evidence": [
+        "frontend/src/App.tsx"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "requirement": "Low-score teasing screen must show the exact specified teasing text only.",
+      "reason": "The teasing screen includes an additional line “You scored {score}/7” which is not part of the specified exact text block.",
+      "evidence": [
+        "frontend/src/screens/ResultsTeaseScreen.tsx"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "requirement": "Optional audio (gentle background music and subtle sound effects) with explicit user controls; defaults OFF; audio can be stopped any time; app must work if assets fail.",
+      "reason": "A toggle UI exists, but the hook creates an empty Audio() element with no source and the UI only toggles enable/disable without starting/stopping background music or implementing SFX. There is no visible music/SFX control beyond enable/disable, and no implemented playback behavior tied to the toggle.",
+      "evidence": [
+        "frontend/src/features/audio/useAudio.ts",
+        "frontend/src/features/audio/AudioControls.tsx"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "Internet Identity authentication provider and actor/identity plumbing added to the frontend runtime.",
+      "reason": "BuildRequest explicitly states no login/authentication is required anywhere, but the diff adds InternetIdentityProvider, useInternetIdentity, and useActor which introduce auth/login infrastructure (even if the quiz screens don’t appear to require it).",
+      "evidence": [
+        "frontend/src/main.tsx",
+        "frontend/src/hooks/useInternetIdentity.ts",
+        "frontend/src/hooks/useActor.ts"
+      ]
+    },
+    {
+      "description": "Added footer branding/attribution (“Built with … using caffeine.ai”) on multiple screens.",
+      "reason": "Not requested in the BuildRequest requirements; introduces extra user-facing UI content.",
+      "evidence": [
+        "frontend/src/screens/FinalCelebrationScreen.tsx",
+        "frontend/src/screens/PunishmentScreen.tsx",
+        "frontend/src/screens/ResultsTeaseScreen.tsx",
+        "frontend/src/screens/ValentineQuestionScreen.tsx"
+      ]
+    }
+  ],
+  "confidence": 0.78,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/CelebrationBurst.tsx",
+    "frontend/src/components/FloatingHeartsBackground.tsx",
+    "frontend/src/components/SparkleBurst.tsx",
+    "frontend/src/features/audio/AudioControls.tsx",
+    "frontend/src/features/audio/useAudio.ts",
+    "frontend/src/features/quiz/quizData.ts",
+    "frontend/src/features/quiz/useQuiz.ts",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/index.css",
+    "frontend/src/lib/copyLink.ts",
+    "frontend/src/main.tsx",
+    "frontend/src/screens/FinalCelebrationScreen.tsx",
+    "frontend/src/screens/PunishmentScreen.tsx",
+    "frontend/src/screens/QuizScreen.tsx",
+    "frontend/src/screens/ResultsPerfectScreen.tsx",
+    "frontend/src/screens/ResultsTeaseScreen.tsx",
+    "frontend/src/screens/ValentineQuestionScreen.tsx",
+    "frontend/src/screens/WelcomeScreen.tsx",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

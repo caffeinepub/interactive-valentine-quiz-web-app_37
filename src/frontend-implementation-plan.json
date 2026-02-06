@@ -1,0 +1,291 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Interactive Valentine Quiz Web App (Frontend)",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "summary": "Establish a consistent romantic pastel theme with floating-hearts background, rounded cards, subtle shadows, and smooth transitions across the app.",
+      "acceptanceCriteria": [
+        "All screens share a consistent romantic theme (colors, typography, spacing, components).",
+        "A floating-hearts background effect is visible but does not block interactions or harm readability.",
+        "Animations/transitions feel smooth on mobile and desktop, with no layout shifts that break usability."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/index.css",
+          "operation": "create",
+          "description": "Create global styles for the romantic pastel gradient theme, rounded card look, subtle shadows, micro-interactions, and motion (including reduced-motion fallbacks). Ensure styles apply consistently across all screens."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Extend Tailwind theme tokens for the app’s romantic palette (pinks/beige/blush/red accents) and add any lightweight keyframes/animations needed for gentle transitions and micro-interactions."
+        },
+        {
+          "path": "frontend/src/components/FloatingHeartsBackground.tsx",
+          "operation": "create",
+          "description": "Add a lightweight floating-hearts background layer component (decorative, pointer-events disabled) that can be mounted once and remain visible across the whole experience."
+        },
+        {
+          "path": "frontend/src/components/ScreenTransition.tsx",
+          "operation": "create",
+          "description": "Create a simple transition wrapper for smooth screen-to-screen fades/slides (mobile-first) without introducing heavy animation dependencies."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "create",
+          "description": "Create the top-level app shell to apply the global theme layout, mount FloatingHeartsBackground, and wrap screens in ScreenTransition for consistent look & smooth navigation."
+        }
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "summary": "Build the Welcome Screen with exact title/subtitle/CTA text and start-quiz behavior that resets progress.",
+      "acceptanceCriteria": [
+        "Welcome screen renders the exact provided title/subtitle/button text.",
+        "Clicking the CTA starts the quiz at Question 1 and resets any prior progress."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/screens/WelcomeScreen.tsx",
+          "operation": "create",
+          "description": "Implement the Welcome Screen UI with the exact strings: Title “How Well Do You Know Your Husband? 💖”, subtitle “A tiny test made with love just for you”, and CTA button “Start the Love Test →”. Use shadcn-ui components (e.g., Button/Card) for consistent styling; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire WelcomeScreen into the app flow and ensure the CTA resets quiz state and navigates to Question 1 (one-question-per-screen flow)."
+        }
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "summary": "Implement the 7-question one-at-a-time MCQ flow with progress indicator, option micro-interactions, correct-answer celebration, and a special sparkle animation for Q4 “Yes I will😘”.",
+      "acceptanceCriteria": [
+        "Quiz contains exactly 7 questions with the options exactly as provided.",
+        "Only one question is visible at a time; user can proceed through all 7 questions.",
+        "A visible progress indicator updates correctly from 1/7 to 7/7.",
+        "Selecting an option provides immediate feedback and triggers hearts/confetti for correct answers.",
+        "Selecting Q4 “Yes I will😘” triggers a distinct sparkle animation in addition to normal feedback."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/screens/QuizScreen.tsx",
+          "operation": "create",
+          "description": "Create the one-question-per-screen quiz UI (cute card layout, progress indicator, interactive hover/press animations on options). Use shadcn-ui primitives (e.g., Card/Button/Progress if available) to keep styling consistent; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/components/CelebrationBurst.tsx",
+          "operation": "create",
+          "description": "Add a lightweight celebration overlay component for hearts/confetti animation on correct selection (non-blocking, performance-friendly, respects reduced-motion)."
+        },
+        {
+          "path": "frontend/src/components/SparkleBurst.tsx",
+          "operation": "create",
+          "description": "Add a distinct sparkle animation component specifically used when Q4 option “Yes I will😘” is selected, in addition to the normal correct-answer feedback."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire QuizScreen into the app flow between Welcome and Results, ensuring navigation proceeds through all 7 questions and ends in the results screen."
+        }
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "summary": "Hardcode the exact quiz questions/options and implement correct-answer scoring including multi-correct behavior to yield a final integer score 0–7.",
+      "acceptanceCriteria": [
+        "Score increments correctly for questions with one correct option and questions with multiple correct options.",
+        "For Q2, any selected option counts as correct.",
+        "For Q3, selecting either of the two correct options counts as correct.",
+        "For Q5, selecting any of the three correct options counts as correct.",
+        "Final score is an integer from 0 to 7."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/features/quiz/quizData.ts",
+          "operation": "create",
+          "description": "Hardcode the 7 questions and all options exactly as provided, and encode correct-answer logic: Q1 “6th oct 2025”; Q2 all options correct; Q3 “Yes babe” and “Defenently honey”; Q4 “Yes I will😘”; Q5 “Uncountable”, “B”, “C”; Q6 “You”; Q7 “You don't love me”."
+        },
+        {
+          "path": "frontend/src/features/quiz/useQuiz.ts",
+          "operation": "create",
+          "description": "Implement quiz state management (current question index, selections, scoring rules for multi-correct questions as specified, and reset behavior). Ensure final computed score is an integer 0–7."
+        },
+        {
+          "path": "frontend/src/screens/QuizScreen.tsx",
+          "operation": "modify",
+          "description": "Use quizData + useQuiz to render the exact questions/options, apply the scoring logic on selection, and advance the one-question-per-screen flow."
+        }
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "summary": "Implement results flow: perfect-score (7/7) winning screen with redeem interaction; low-score (<5) teasing result → punishment page → Valentine Yes/No step.",
+      "acceptanceCriteria": [
+        "Perfect-score path is shown only when score is 7/7.",
+        "Perfect-score screen includes the redeem button and reveals the booking message on click.",
+        "Low-score path is shown only when score < 5.",
+        "Low-score flow includes: teasing meme + teasing text, then a separate punishment page, then the Valentine question with Yes/No buttons."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/screens/ResultsPerfectScreen.tsx",
+          "operation": "create",
+          "description": "Create the perfect-score (7/7) results screen with the exact text block and date-coupon block, display the romantic meme image from frontend/public/assets/generated/valentine-win-meme.dim_1200x800.png, and implement the “Redeem My Date 💌” button to reveal “Your husband will contact you shortly for booking 😉”."
+        },
+        {
+          "path": "frontend/src/screens/ResultsTeaseScreen.tsx",
+          "operation": "create",
+          "description": "Create the teasing results screen used only when score < 5, showing the exact teasing text and the teasing meme image from frontend/public/assets/generated/valentine-tease-meme.dim_1200x800.png, and include the line “But you should do the punishment for low score” before continuing to the punishment page."
+        },
+        {
+          "path": "frontend/src/screens/PunishmentScreen.tsx",
+          "operation": "create",
+          "description": "Create a separate punishment page that displays the punishment text exactly as provided in the BuildRequest (ensure exact capitalization/punctuation/line breaks), then provides a continue action to the Valentine question step."
+        },
+        {
+          "path": "frontend/src/screens/ValentineQuestionScreen.tsx",
+          "operation": "create",
+          "description": "Create the “Will you still be my Valentine? 💘” step UI with two buttons: “Yes 💖” and “No 😈”. Use shadcn-ui Button styling for the playful interaction affordances; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire post-quiz routing logic: if score is 7/7 show ResultsPerfectScreen; if score < 5 show ResultsTeaseScreen then PunishmentScreen then ValentineQuestionScreen. Keep the rest of the experience accessible without authentication."
+        }
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "summary": "Add the Valentine Trick scaling interaction for Yes/No, with required prompt text changes and a final celebration screen with confetti/hearts animation.",
+      "acceptanceCriteria": [
+        "Each “No 😈” click increases Yes button size and decreases No button size.",
+        "Prompt text updates to the required strings after the first two “No” clicks and remains playful thereafter while scaling continues.",
+        "Yes button eventually dominates the layout while No becomes tiny but still present.",
+        "Clicking Yes always navigates to the final celebration view with confetti/hearts animation."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/screens/ValentineQuestionScreen.tsx",
+          "operation": "modify",
+          "description": "Implement the “No 😈” click counter, progressive scaling of the Yes/No buttons, and prompt text sequencing: after 1st No → “Are you sure?? 🥺”; after 2nd No → “You have no escape 😌”; continue scaling thereafter while keeping No still present but very hard to click."
+        },
+        {
+          "path": "frontend/src/screens/FinalCelebrationScreen.tsx",
+          "operation": "create",
+          "description": "Create the final celebration view shown after clicking “Yes 💖”, with the exact text “YAY!!! You are my Valentine forever 💖🌹” and a lightweight confetti + hearts romantic animation (performance-friendly, reduced-motion aware)."
+        },
+        {
+          "path": "frontend/src/components/CelebrationBurst.tsx",
+          "operation": "modify",
+          "description": "Extend the celebration overlay to support the final-screen continuous/hero celebration mode (confetti + hearts) without heavy assets."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Wire “Yes 💖” action from ValentineQuestionScreen to navigate to FinalCelebrationScreen every time."
+        }
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "summary": "Provide optional background music and subtle sound effects with explicit, visible user controls defaulting to OFF and stoppable anytime.",
+      "acceptanceCriteria": [
+        "Audio does not autoplay; it starts only after user interaction enabling it.",
+        "User can toggle music/SFX on/off at any time.",
+        "If audio assets fail to load, the app still works without errors."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/features/audio/useAudio.ts",
+          "operation": "create",
+          "description": "Implement an audio controller hook that defaults to OFF, starts only after user interaction, supports toggling music/SFX at any time, and fails gracefully if playback cannot start."
+        },
+        {
+          "path": "frontend/src/features/audio/AudioControls.tsx",
+          "operation": "create",
+          "description": "Create a visible audio control UI (toggle and/or volume) usable across screens. Use shadcn-ui Switch/Slider/Button components if available; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Mount AudioControls in the shared layout so audio can be enabled/disabled from anywhere, and trigger subtle SFX hooks for interactions (e.g., selecting answers) only when enabled."
+        }
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "summary": "Add a share action that copies the current URL with success/failure feedback, and ensure no login is required anywhere.",
+      "acceptanceCriteria": [
+        "A share/copy-link control is present on at least the welcome screen and/or results screens.",
+        "Copy-link action copies a usable URL to clipboard (with a visible success/failure toast/message).",
+        "No screens require login/authentication to proceed."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/ToastHost.tsx",
+          "operation": "create",
+          "description": "Add a lightweight toast/message host for transient UI feedback (success/failure) without requiring authentication. Use shadcn-ui toast primitives if already present in the template; verify the component's usage instructions before implementing."
+        },
+        {
+          "path": "frontend/src/lib/copyLink.ts",
+          "operation": "create",
+          "description": "Implement a helper that copies window.location.href to the clipboard (with fallback when clipboard is unavailable) and returns success/failure for toast messaging."
+        },
+        {
+          "path": "frontend/src/screens/WelcomeScreen.tsx",
+          "operation": "modify",
+          "description": "Add a “Copy Link” (or equivalent) action to the welcome screen that uses copyLink and shows a visible success/failure toast/message."
+        },
+        {
+          "path": "frontend/src/screens/ResultsPerfectScreen.tsx",
+          "operation": "modify",
+          "description": "Add a “Copy Link” (or equivalent) action to the perfect-score results screen with visible toast/message feedback."
+        },
+        {
+          "path": "frontend/src/screens/ResultsTeaseScreen.tsx",
+          "operation": "modify",
+          "description": "Add a “Copy Link” (or equivalent) action to the low-score results flow with visible toast/message feedback."
+        },
+        {
+          "path": "frontend/src/App.tsx",
+          "operation": "modify",
+          "description": "Mount ToastHost at the app shell level and ensure the entire experience is accessible without requiring any login/authentication step."
+        }
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "summary": "Add the required generated images as static assets and render them in the results screens without any backend fetching.",
+      "acceptanceCriteria": [
+        "Generated images are stored in frontend/public/assets/generated and referenced directly by the frontend.",
+        "Perfect-score result screen displays the romantic/cute meme image.",
+        "Low-score result flow displays the teasing (not mean) meme image."
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/public/assets/generated/valentine-win-meme.dim_1200x800.png",
+          "operation": "create",
+          "description": "Add the required generated image asset (Cute romantic cartoon couple meme illustration, pastel palette) as a static file at the exact path frontend/public/assets/generated/valentine-win-meme.dim_1200x800.png."
+        },
+        {
+          "path": "frontend/public/assets/generated/valentine-tease-meme.dim_1200x800.png",
+          "operation": "create",
+          "description": "Add the required generated image asset (Cute teasing-but-sweet cartoon reaction meme illustration, pastel palette) as a static file at the exact path frontend/public/assets/generated/valentine-tease-meme.dim_1200x800.png."
+        },
+        {
+          "path": "frontend/src/screens/ResultsPerfectScreen.tsx",
+          "operation": "modify",
+          "description": "Reference and render the static image frontend/public/assets/generated/valentine-win-meme.dim_1200x800.png directly from the frontend (no backend fetching)."
+        },
+        {
+          "path": "frontend/src/screens/ResultsTeaseScreen.tsx",
+          "operation": "modify",
+          "description": "Reference and render the static image frontend/public/assets/generated/valentine-tease-meme.dim_1200x800.png directly from the frontend (no backend fetching)."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,218 @@
+{
+  "kind": "build_request",
+  "title": "Interactive Valentine Quiz Web App (7-question romantic MCQ + results + Valentine Yes/No trick)",
+  "priority": "normal",
+  "requirements": [
+    {
+      "id": "REQ-1",
+      "text": "Create the app’s overall visual theme and UI system: soft romantic pastel gradients (pinks/beige/blush/red accents), cute rounded cards, subtle shadows, gentle animations, smooth page transitions, playful micro-interactions, and a floating-hearts background layer applied consistently across all screens (mobile-first, responsive).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Create a very aesthetic, romantic, fun and playful interactive web experience for my wife.",
+          "Overall Concept ... soft romantic UI, pastel colours, hearts, subtle animations, smooth transitions and playful micro-interactions.",
+          "Extra UI / UX Requirements ... Soft pastel gradients ... Floating hearts in background ... Cute rounded cards ... Mobile-first responsive design"
+        ]
+      },
+      "acceptanceCriteria": [
+        "All screens share a consistent romantic theme (colors, typography, spacing, components).",
+        "A floating-hearts background effect is visible but does not block interactions or harm readability.",
+        "Animations/transitions feel smooth on mobile and desktop, with no layout shifts that break usability."
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "text": "Implement the Welcome Screen with the exact title, subtitle, and primary CTA: Title “How Well Do You Know Your Husband? 💖”, subtitle “A tiny test made with love just for you”, and a large button labeled “Start the Love Test →” that starts the quiz flow.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "1. Welcome Screen ... Title: “How Well Do You Know Your Husband? 💖” ... Subtitle: “A tiny test made with love just for you” ... A big cute button: “Start the Love Test →”"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Welcome screen renders the exact provided title/subtitle/button text.",
+        "Clicking the CTA starts the quiz at Question 1 and resets any prior progress."
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "text": "Implement the 7-question multiple-choice quiz as a one-question-per-screen flow with: a cute card UI, progress indicator (e.g., “Question X/7” and/or progress bar), interactive hover/press animations on options, and a celebration animation (hearts/confetti) on selecting a correct answer. Add a special sparkle animation when selecting Q4 option “Yes I will😘”.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "It should be a cute 7-question MCQ love quiz",
+          "Each question should appear one at a time with: Cute card UI, Progress bar (Question 1/5, 2/5 etc.), Fun hover animations on options, Heart/confetti animation on correct answer",
+          "Q4 ... (If she selects “yes i will😘”, show special sparkle animation ✨)"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Quiz contains exactly 7 questions with the options exactly as provided.",
+        "Only one question is visible at a time; user can proceed through all 7 questions.",
+        "A visible progress indicator updates correctly from 1/7 to 7/7.",
+        "Selecting an option provides immediate feedback and triggers hearts/confetti for correct answers.",
+        "Selecting Q4 “Yes I will😘” triggers a distinct sparkle animation in addition to normal feedback."
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "text": "Hardcode the quiz questions, options, and correct-answer logic exactly as specified (including multi-correct questions):\n- Q1 correct: “6th oct 2025”\n- Q2 correct: A, B, C, D (all correct)\n- Q3 correct: “Yes babe”, “Defenently honey”\n- Q4 correct: “Yes I will😘”\n- Q5 correct: “Uncountable”, “B”, “C”\n- Q6 correct: “You”\n- Q7 correct: “You don't love me”",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Questions & Correct Answers ... Q1 ... B. 6th oct 2025 ✅",
+          "Q2 ... A. A cafe✅ B. Restuarant ✅ C. Beach✅ D. In my dreams✅",
+          "Q3 ... B. Yes babe✅ C. Defenently honey✅",
+          "Q4 ... A. Yes I will😘✅",
+          "Q5 ... B. Uncountable ✅ C. B✅ D. C✅",
+          "Q6 ... C. You✅",
+          "Q7 ... A. You don't love me✅"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Score increments correctly for questions with one correct option and questions with multiple correct options.",
+        "For Q2, any selected option counts as correct.",
+        "For Q3, selecting either of the two correct options counts as correct.",
+        "For Q5, selecting any of the three correct options counts as correct.",
+        "Final score is an integer from 0 to 7."
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "text": "Implement result logic and screens:\n- If score is 7/7: show a “winning” result screen with the exact text:\n  “OMG 5/5!!! 😭💖\n\nYou are officially the BEST WIFE IN THE WORLD.”\n  Show a cute romantic/cartoon couple meme image, then show the date-coupon block:\n  “🎟 You have won a DATE COUPON!\n  Redeemable for: One full day of love, food, cuddles & surprises.”\n  Include a button “Redeem My Date 💌”. On click, show the message: “Your husband will contact you shortly for booking 😉”.\n- If score < 5: show a teasing (not mean) meme image and the exact text:\n  “Hmm… not perfect 👀\n\nYou need to do better… but I still love you.”\n  Then show: “But you should do the punishment for low score” and continue to the next page to show the punishment text exactly as provided, then proceed to the “Will you still be my Valentine? 💘” step (two buttons Yes/No).",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "3. Result Logic",
+          "If Score = 7/7 (Perfect) ... Text: “OMG 5/5!!! 😭💖\n\nYou are officially the BEST WIFE IN THE WORLD.” ... 🎟 You have won a DATE COUPON! ... Button: “Redeem My Date 💌” ... “Your husband will contact you shortly for booking 😉”",
+          "If Score < 5 ... Text: “Hmm… not perfect 👀\n\nYou need to do better… but I still love you.” ... After this show \"But you should do the punishment for low score\" Then show this in next page The punishment is: ...",
+          "Then show: “Will you still be my Valentine? 💘” With two buttons: Yes 💖, No 😈"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Perfect-score path is shown only when score is 7/7.",
+        "Perfect-score screen includes the redeem button and reveals the booking message on click.",
+        "Low-score path is shown only when score < 5.",
+        "Low-score flow includes: teasing meme + teasing text, then a separate punishment page, then the Valentine question with Yes/No buttons."
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "text": "Implement the “Valentine Trick” interaction on the “Will you still be my Valentine? 💘” step: Clicking “No 😈” repeatedly makes the “Yes 💖” button progressively larger and the “No 😈” button progressively smaller, while the prompt text changes in sequence:\n- After 1st No: prompt becomes “Are you sure?? 🥺”\n- After 2nd No: prompt becomes “You have no escape 😌”\n- Continue scaling until “Yes 💖” fills most of the screen and “No 😈” becomes very hard to click.\nWhen “Yes 💖” is clicked, show the final celebration screen with the exact text “YAY!!! You are my Valentine forever 💖🌹” plus confetti + hearts + romantic animation.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "4. The Valentine Trick (Important) ... If she clicks No: The Yes button becomes bigger ... The No button becomes smaller ... Text changes to: “Are you sure?? 🥺” ... If she clicks No again: Yes becomes EVEN BIGGER ... No becomes tiny ... Text: “You have no escape 😌” ... Repeat until ... When she finally clicks Yes: Show: “YAY!!! You are my Valentine forever 💖🌹” Confetti + hearts + romantic animation."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Each “No 😈” click increases Yes button size and decreases No button size.",
+        "Prompt text updates to the required strings after the first two “No” clicks and remains playful thereafter while scaling continues.",
+        "Yes button eventually dominates the layout while No becomes tiny but still present.",
+        "Clicking Yes always navigates to the final celebration view with confetti/hearts animation."
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "text": "Add optional audio (gentle background music and subtle sound effects) with explicit user controls: provide a visible toggle (and/or volume control) that defaults to OFF until the user enables it; ensure audio can be stopped at any time.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "gentle music optional",
+          "Extra UI / UX Requirements ... Subtle sound effects (optional)"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Audio does not autoplay; it starts only after user interaction enabling it.",
+        "User can toggle music/SFX on/off at any time.",
+        "If audio assets fail to load, the app still works without errors."
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "text": "Make the experience shareable with no login required: implement a “Copy Link” (or equivalent) share action that copies the current app URL, and ensure the full experience works for any visitor without authentication.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Shareable link",
+          "No login required"
+        ]
+      },
+      "acceptanceCriteria": [
+        "A share/copy-link control is present on at least the welcome screen and/or results screens.",
+        "Copy-link action copies a usable URL to clipboard (with a visible success/failure toast/message).",
+        "No screens require login/authentication to proceed."
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "text": "Render required generated images as static assets under frontend/public/assets/generated and use them in the result screens (perfect-score meme and low-score teasing meme) without fetching images via the backend.",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-1"
+        ],
+        "quotes": [
+          "Show a cute meme (romantic couple / cartoon couple).",
+          "Show a fun teasing meme (not mean, just cute/funny)."
+        ]
+      },
+      "acceptanceCriteria": [
+        "Generated images are stored in frontend/public/assets/generated and referenced directly by the frontend.",
+        "Perfect-score result screen displays the romantic/cute meme image.",
+        "Low-score result flow displays the teasing (not mean) meme image."
+      ]
+    }
+  ],
+  "constraints": [
+    "Use English for any user-facing text in the build request.",
+    "No login/authentication required anywhere in the app.",
+    "Keep the app simple and fast; avoid heavy assets/animations that harm mobile performance.",
+    "Do not edit files under frontend/src/components/ui or the immutable hook/bootstrap paths listed in SYSTEM_CONTEXT."
+  ],
+  "nonGoals": [
+    "Do not implement external databases or third-party auth providers (only Internet Identity exists, but this app must not require login).",
+    "Do not implement real-time features (WebSockets/chat) or any external social media integrations.",
+    "Do not collect or upload user videos/media; the punishment text is display-only and the app should not request camera/file permissions."
+  ],
+  "imageRequirements": {
+    "required": [
+      "Cute romantic cartoon couple meme illustration, pastel palette (valentine-win-meme.dim_1200x800.png)",
+      "Cute teasing-but-sweet cartoon reaction meme illustration, pastel palette (valentine-tease-meme.dim_1200x800.png)"
+    ],
+    "edits": []
+  },
+  "userProfileUpdate": {
+    "goalsToAdd": [],
+    "goalsToRemove": [],
+    "preferencesToAdd": [],
+    "preferencesToRemove": [],
+    "miscToAdd": [],
+    "miscToRemove": [],
+    "fieldsToSet": {},
+    "fieldsToDelete": []
+  }
+}
