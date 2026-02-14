@@ -32,7 +32,7 @@ export default function ResultsPerfectScreen({ onRestart }: ResultsPerfectScreen
             </div>
             
             <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-pink-500 via-red-400 to-pink-400 bg-clip-text text-transparent">
-              OMG 7/7!!! 😭💖
+              OMG 5/5!!! 😭💖
             </h1>
             
             <p className="text-xl md:text-2xl font-semibold text-foreground mb-8">

@@ -20,10 +20,10 @@ export default function PunishmentScreen({ onContinue }: PunishmentScreenProps) 
           </div>
 
           <div className="bg-gradient-to-br from-pink-50 to-red-50 rounded-2xl p-8 mb-8 border-2 border-pink-200 shadow-lg">
-            <p className="text-lg md:text-xl text-foreground leading-relaxed text-center">
-              You still haven't sent me the fit-check video wearing the waist chain, so no excuses. Without giving any reason, you have to send me the video.
+            <p className="text-lg md:text-xl text-foreground leading-relaxed text-center mb-4">
+              You still haven't sent me the fit-check video wearing the waist chain, so no excuses. Without giving any reason, you have to send me the video. if you want to give me a gift for valentine's day send me this, otherwise I'll assume(you don't want to give any gift for me)😔😔
             </p>
-            <p className="text-lg md:text-xl text-foreground leading-relaxed text-center mt-4">
+            <p className="text-lg md:text-xl text-foreground leading-relaxed text-center">
               (It's not fully naughty… but yeah, a little naughty 😋😋)
             </p>
           </div>

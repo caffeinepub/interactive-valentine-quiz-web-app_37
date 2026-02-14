@@ -32,7 +32,7 @@ export const quizData: QuizQuestion[] = [
     options: [
       { text: "Nope", isCorrect: false },
       { text: "Yes babe", isCorrect: true },
-      { text: "Defenently honey", isCorrect: true },
+      { text: "Never", isCorrect: false },
       { text: "Maybee", isCorrect: false },
     ],
   },
@@ -58,7 +58,7 @@ export const quizData: QuizQuestion[] = [
     question: "Which thing do I love the most?",
     options: [
       { text: "Myself", isCorrect: false },
-      { text: "Ronaldo", isCorrect: false },
+      { text: "Ronaldo", isCorrect: true },
       { text: "You", isCorrect: true },
       { text: "Food", isCorrect: false },
     ],

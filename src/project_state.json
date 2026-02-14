@@ -1,16 +1,18 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 3,
-  "summary": "Interactive Valentine Quiz Web App: a mobile-first, pastel/romantic 7-question MCQ love quiz experience with animations, scoring-based result screens, and an escalating “Yes/No” Valentine button trick ending. No login; shareable link; optional gentle music/sfx.",
+  "projectStateVersion": 7,
+  "summary": "Interactive Valentine Quiz Web App: a mobile-first, pastel/romantic interactive love quiz (7 questions) with cute card UI, animations, scoring-based result screens, and an escalating “Yes/No” Valentine button trick ending. No login; shareable link; optional gentle music/sfx. Welcome title text updated to “happy valentine's day dii puna kutty? 💖”; final celebration text includes “diii pondati”.",
   "architectural_notes": [
     "Mobile-first single-page web experience with screen-based navigation (welcome → quiz questions → results → valentine trick).",
     "No-auth/shareable-link requirement implies client-side state; consider URL-safe share token only if persistence is needed."
   ],
   "known_issues": [
-    "Low-score ‘punishment’ text requests a “fit-check video wearing the waist chain… a little naughty”; may be sensitive/sexual content and could require consent/safety review or toned-down alternative."
+    "Low-score ‘punishment’ text requests a “fit-check video wearing the waist chain… a little naughty”; may be sensitive/sexual content and could require consent/safety review or toned-down alternative.",
+    "Spec inconsistency: quiz section says “The Quiz (5 MCQs)” and progress “Question X/5” and perfect-score text “OMG 5/5!!!”, but the quiz lists 7 questions and elsewhere uses 7/7 scoring. Needs alignment (5 vs 7).",
+    "Spec changes vs prior state: Welcome title/subtitle text differs; Q3 correct answer now only “Yes babe” (previously included “Defenently honey”); Q6 correct answer now “Ronaldo” (previously “You”); final Valentine celebration text now includes “diii pondati”.",
+    "Spec inconsistency/regression: Q6 “Which thing do I love the most?” is shown with TWO correct answers (Ronaldo ✅ and You ✅) in the latest script, but an existing requirement/update (REQ-11) says ONLY “Ronaldo” should be correct. Needs decision (single-correct vs multi-correct) and alignment in scoring/UX."
   ],
   "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Cute romantic cartoon couple meme illustration, pastel palette (valentine-win-meme.dim_1200x800.png)\n- Cute teasing-but-sweet cartoon reaction meme illustration, pastel palette (valentine-tease-meme.dim_1200x800.png)",
   "existing_features": [
     {
       "id": "feature-create-the-app-s-overall-visual-theme-and-ui-system-soft-romantic-pastel-gradients-pinks-beige-blush-red-accents-cute-rounded-cards-subtle-shadows-gentle-animations-smooth-page-transitions-playful-micro-interactions-and-a-floating-hearts-background-layer-applied-consistently-across-all-screens-mobile-first-responsive",
@@ -81,6 +83,54 @@
       "title": "Render required generated images as static assets under frontend/public/assets/generated and use them in the result screens (perfect-score meme and low-score teasing meme) without fetching images via the backend.",
       "reqIds": [
         "REQ-9"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-welcome-screen-hero-title-text-to-exactly-happy-valentine-s-day-dii-puna-kutty-keep-the-existing-subtitle-a-tiny-test-made-with-love-just-for-you-and-cta-start-the-love-test",
+      "title": "Update the Welcome screen hero title text to exactly: “happy valentine's day dii puna kutty? 💖” (keep the existing subtitle “A tiny test made with love just for you” and CTA “Start the Love Test →”).",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-hardcoded-quiz-questions-options-correctness-to-match-the-latest-provided-script-for-q3-and-q6-q3-options-must-be-exactly-nope-yes-babe-never-maybee-with-only-yes-babe-marked-correct-q6-options-must-be-exactly-myself-ronaldo-you-food-with-only-ronaldo-marked-correct",
+      "title": "Update the hardcoded quiz questions/options/correctness to match the latest provided script for Q3 and Q6: Q3 options must be exactly [“Nope”, “Yes babe”, “Never”, “Maybee”] with ONLY “Yes babe” marked correct; Q6 options must be exactly [“Myself”, “Ronaldo”, “You”, “Food”] with ONLY “Ronaldo” marked correct.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-perfect-score-results-screen-headline-text-to-exactly-match-the-latest-script-omg-5-5-keep-the-remainder-of-the-perfect-score-screen-copy-and-the-date-coupon-behavior-the-same",
+      "title": "Update the perfect-score results screen headline text to exactly match the latest script: “OMG 5/5!!! 😭💖” (keep the remainder of the perfect-score screen copy and the date coupon behavior the same).",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-punishment-screen-text-to-exactly-match-the-latest-provided-punishment-paragraph-including-the-gift-assumption-lines-and-emojis-preserving-line-breaks-for-readability",
+      "title": "Update the Punishment screen text to exactly match the latest provided punishment paragraph (including the gift/assumption lines and emojis), preserving line breaks for readability.",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-final-celebration-screen-main-message-to-exactly-yay-you-are-my-valentine-forever-diii-pondati-while-keeping-the-existing-confetti-hearts-romantic-animation-and-restart-behavior",
+      "title": "Update the final celebration screen main message to exactly: “YAY!!! You are my Valentine forever diii pondati 💖🌹” while keeping the existing confetti/hearts/romantic animation and restart behavior.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-quiz-question-6-which-thing-do-i-love-the-most-so-that-both-options-ronaldo-and-you-are-marked-as-correct-answers-multi-correct-matching-the-latest-provided-quiz-script-and-ensure-scoring-celebration-behavior-treats-selecting-either-correct-option-as-a-correct-answer",
+      "title": "Update Quiz Question 6 (\"Which thing do I love the most?\") so that BOTH options \"Ronaldo\" and \"You\" are marked as correct answers (multi-correct), matching the latest provided quiz script, and ensure scoring/celebration behavior treats selecting either correct option as a correct answer.",
+      "reqIds": [
+        "REQ-15"
       ],
       "version": 1
     }

@@ -25,7 +25,7 @@ export default function WelcomeScreen({ onStart }: WelcomeScreenProps) {
           </div>
           
           <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-pink-500 via-red-400 to-pink-400 bg-clip-text text-transparent">
-            How Well Do You Know Your Husband? 💖
+            happy valentine's day dii puna kutty? 💖
           </h1>
           
           <p className="text-lg md:text-xl text-muted-foreground mb-8">

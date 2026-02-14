@@ -18,7 +18,7 @@ export default function FinalCelebrationScreen({ onRestart }: FinalCelebrationSc
             </div>
             
             <h1 className="text-4xl md:text-6xl font-bold mb-8 bg-gradient-to-r from-pink-500 via-red-400 to-pink-400 bg-clip-text text-transparent">
-              YAY!!! You are my Valentine forever 💖🌹
+              YAY!!! You are my Valentine forever diii pondati 💖🌹
             </h1>
 
             <div className="mb-8">
